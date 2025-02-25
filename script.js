@@ -13,6 +13,11 @@ const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement); // Attach it to the page
 
+// ✅ Enable mouse controls to rotate the cube (ADD THIS HERE)
+const controls = new THREE.OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+controls.dampingFactor = 0.05;
+
 // Add Lighting
 const light = new THREE.AmbientLight(0xffffff, 1.5); // White light
 scene.add(light);
