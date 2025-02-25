@@ -56,3 +56,31 @@ for (let x = -1; x <= 1; x++) {
     }
 }
 
+window.addEventListener('click', (event) => {
+    // Cast a ray to detect which cubie was clicked
+    const raycaster = new THREE.Raycaster();
+    const mouse = new THREE.Vector2(
+        (event.clientX / window.innerWidth) * 2 - 1,
+        -(event.clientY / window.innerHeight) * 2 + 1
+    );
+    
+    raycaster.setFromCamera(mouse, camera);
+    const intersects = raycaster.intersectObjects(cubies);
+
+    if (intersects.length > 0) {
+        rotateFace(intersects[0].object);
+    }
+});
+
+function rotateFace(cubie) {
+    const rotationAxis = new THREE.Vector3(0, 1, 0); // Rotate around Y-axis
+    const angle = Math.PI / 2;
+    
+    // Rotate all cubies that belong to the same layer
+    cubies.forEach(c => {
+        if (Math.abs(c.position.y - cubie.position.y) < 0.1) {
+            c.rotateOnAxis(rotationAxis, angle);
+        }
+    });
+}
+
