@@ -23,3 +23,31 @@ function animate() {
     renderer.render(scene, camera);
 }
 animate();
+
+// Create a 3x3x3 Rubik's Cube
+const cubies = [];
+const cubeSize = 1.1; // Slightly spaced apart to look real
+
+for (let x = -1; x <= 1; x++) {
+    for (let y = -1; y <= 1; y++) {
+        for (let z = -1; z <= 1; z++) {
+            const geometry = new THREE.BoxGeometry(1, 1, 1);
+            
+            // Different colors for each face
+            const materials = [
+                new THREE.MeshBasicMaterial({ color: 0xff0000 }), // Red
+                new THREE.MeshBasicMaterial({ color: 0x0000ff }), // Blue
+                new THREE.MeshBasicMaterial({ color: 0x00ff00 }), // Green
+                new THREE.MeshBasicMaterial({ color: 0xffff00 }), // Yellow
+                new THREE.MeshBasicMaterial({ color: 0xffa500 }), // Orange
+                new THREE.MeshBasicMaterial({ color: 0xffffff })  // White
+            ];
+
+            const cubie = new THREE.Mesh(geometry, materials);
+            cubie.position.set(x * cubeSize, y * cubeSize, z * cubeSize);
+            scene.add(cubie);
+            cubies.push(cubie);
+        }
+    }
+}
+
